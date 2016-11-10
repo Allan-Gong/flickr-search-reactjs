@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import jsonp from 'jsonp';
 import {Header} from './header';
-import {Footer} from './footer';
 import {Images} from './images/images';
 
 export class Main extends Component {
@@ -12,11 +11,6 @@ export class Main extends Component {
       images: [],
       showLoading: false
     };
-
-    // this.searchImages = this.searchImages.bind(this);
-    // this.showLoading = this.showLoading.bind(this);
-    // this.hideLoading = this.hideLoading.bind(this);
-
   }
 
   showLoading = () => {
@@ -28,27 +22,28 @@ export class Main extends Component {
   }
 
   searchImages = (event) => {
+    const self = this;
 
-    console.log('searchImages() called');
+    const searchTerm = event.target.value;
 
-    var self = this;
+    if (searchTerm.length < 3) {
+      self.setState({images: []});
+      return;
+    }
 
     self.showLoading();
 
-    var searchTerm = event.target.value;
-
-    if (searchTerm.length < 3) { return; }
-
     jsonp(
-      'https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagmode=any&jsoncallback=jsonFlickrFeed&tags=' + searchTerm,
+      `https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagmode=any&jsoncallback=jsonFlickrFeed&tags=${searchTerm}`,
       {param: 'jsoncallback', name: 'jsonFlickrFeed'},
-      function (err, data) {
+      (err, data) => {
         if (err) {
           console.error(err.message);
         } else {
           console.log(data);
           self.setState({images: data.items});
         }
+        self.hideLoading();
       }
     );
   }
@@ -58,10 +53,10 @@ export class Main extends Component {
 
       <div className="container">
 
-        <Header searchImages={this.searchImages} />
-        <Images images={this.state.images} hideLoading={this.hideLoading} />
+        <Header handleChange={this.searchImages}/>
+        <Images images={this.state.images}/>
 
-        { this.state.showLoading ? <div className="loading">Loading&#8230;</div> : null }
+        {this.state.showLoading ? <div className="loading">Loading&#8230;</div> : null}
 
       </div>
 

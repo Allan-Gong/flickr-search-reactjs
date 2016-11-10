@@ -9,13 +9,13 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint'
-      }
-    ],
+    // preLoaders: [
+    //   {
+    //     test: /\.js$/,
+    //     exclude: /node_modules/,
+    //     loader: 'eslint'
+    //   }
+    // ],
 
     loaders: [
       {
@@ -50,9 +50,9 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {unused: true, dead_code: true} // eslint-disable-line camelcase
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {unused: true, dead_code: true} // eslint-disable-line camelcase
+    // }),
     new ExtractTextPlugin('index-[contenthash].css')
   ],
   postcss: () => [autoprefixer],
@@ -63,5 +63,11 @@ module.exports = {
   entry: {
     app: `./${conf.path.src('index')}`,
     vendor: Object.keys(pkg.dependencies)
+  },
+  node: {
+    //console: 'empty',
+    fs: 'empty',
+    net: 'empty'
+    //tls: 'empty'
   }
 };

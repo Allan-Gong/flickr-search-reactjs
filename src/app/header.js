@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import DebounceInput from 'react-debounce-input';
 
 export class Header extends Component {
@@ -23,7 +22,8 @@ export class Header extends Component {
                   className="form-control"
                   minLength={3}
                   debounceTimeout={750}
-                  onChange={event => this.props.searchImages(event)} />
+                  onChange={this.props.handleChange}
+                />
               </div>
             </form>
 
@@ -34,3 +34,7 @@ export class Header extends Component {
   }
 
 }
+
+Header.propTypes = {
+  handleChange: React.PropTypes.func.isRequired
+};

@@ -7,7 +7,10 @@
     "react-debounce-input": "^2.4.1",
     "react-dom": "^15.0.1",
     "react-masonry-component": "^4.3.1",
-    "react-router": "^2.4.0"
+    "react-router": "^2.4.0",
+    "express": "^4.14.0",
+    "gzippo": "^0.2.0",
+    "morgan": "^1.7.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.2.2",
@@ -58,6 +61,8 @@
     "webpack-hot-middleware": "^2.6.0"
   },
   "scripts": {
+    "postinstall": "gulp",
+    "start": "node web.js",
     "build": "gulp",
     "serve": "gulp serve",
     "serve:dist": "gulp serve:dist",
