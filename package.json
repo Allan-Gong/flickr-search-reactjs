@@ -64,7 +64,7 @@
   },
   "scripts": {
     "start": "node web.js",
-    "build": "gulp",
+    "heroku-postbuild": "gulp",
     "serve": "gulp serve",
     "serve:dist": "gulp serve:dist",
     "test": "gulp test",
