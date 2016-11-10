@@ -2,6 +2,7 @@
   "dependencies": {
     "axios": "^0.9.1",
     "express": "^4.14.0",
+    "foreman": "2.0.0",
     "gulp": "github:gulpjs/gulp#4ed9a4a3275559c73a396eff7e1fde3824951ebb",
     "gulp-cli": "^1.2.2",
     "gzippo": "^0.2.0",
@@ -35,7 +36,6 @@
     "eslint-plugin-babel": "^3.1.0",
     "eslint-plugin-react": "^5.0.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.3",
-    "gulp": "gulpjs/gulp#4ed9a4a3275559c73a396eff7e1fde3824951ebb",
     "gulp-filter": "^4.0.0",
     "gulp-hub": "frankwallis/gulp-hub#d461b9c700df9010d0a8694e4af1fb96d9f38bf4",
     "gulp-sass": "^2.1.1",
@@ -63,7 +63,6 @@
     "webpack-hot-middleware": "^2.6.0"
   },
   "scripts": {
-    "postinstall": "gulp",
     "start": "node web.js",
     "build": "gulp",
     "serve": "gulp serve",
