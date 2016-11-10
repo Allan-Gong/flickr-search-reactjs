@@ -1,0 +1,25 @@
+import React, {Component} from 'react';
+
+export class Image extends Component {
+  render() {
+
+    var image = this.props.data;
+    // console.log('Image: ' + image)
+
+    console.log('Image render() called');
+    if ( image == null ) { return null; }
+
+    return (
+
+      <div className="thumbnail">
+        <a href={image.link}>
+          <img className="img-responsive" src={image.media.m} alt={image.title} />
+        </a>
+        <a href={image.link}><h3 className="truncate">{image.title}</h3></a>
+        <i>{image.author}</i>
+
+      </div>
+
+    );
+  }
+}
