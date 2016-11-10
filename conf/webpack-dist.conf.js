@@ -67,7 +67,8 @@ module.exports = {
   node: {
     //console: 'empty',
     fs: 'empty',
-    net: 'empty'
-    //tls: 'empty'
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
   }
 };
