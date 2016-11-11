@@ -6,13 +6,15 @@ Demo app build with ReactJS to perform live Flickr image search
 
 ### Heroku
 
+https://cryptic-hollows-21191.herokuapp.com
+
 ### Google App Engine
+
+https://flickr-reactjs-demo.appspot.com
 
 ## Features
 
 ## Web framework layer
-This generators can be used directly to bypass the framework question.
-
 [![React](http://fountainjs.io/assets/imgs/react.png)](https://github.com/FountainJS/generator-fountain-react)
 
 ### Web tooling layer
