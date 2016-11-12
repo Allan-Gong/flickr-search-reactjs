@@ -17,7 +17,7 @@ a {
 }
 
 .truncate {
-  width: 250px;
+  width: 90%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -39,6 +39,10 @@ a {
 
 .tag-info {
   background-color: #5bc0de;
+}
+
+.is-search-term {
+  background-color: #f45f42;
 }
 
 /* Absolute Center Spinner */

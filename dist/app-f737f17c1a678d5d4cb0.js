@@ -37980,36 +37980,50 @@ var Main = exports.Main = function (_Component) {
 
       self.showLoading();
 
+      var internalServerErrorItem = {
+        'title': 'Opps, an error occurred with Flickr web service: 502',
+        'author': 'System administrator',
+        'link': 'javascript:;',
+        'media': { 'm': '' },
+        'tags': [{ value: 'error', isSearchTerm: false }, { value: '502', isSearchTerm: true }]
+      };
+
       (0, _jsonp2.default)('https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagmode=any&jsoncallback=jsonFlickrFeed&tags=' + searchTerm, { param: 'jsoncallback', name: 'jsonFlickrFeed' }, function (err, data) {
         var images = [];
-        if (err) {
-          images = [{
-            'title': 'Opps, an error occurred with Flickr web service: 502',
-            'author': 'System administrator',
-            'link': 'javascript:;',
-            'media': { 'm': '' },
-            'tags': ['error', '502']
-          }];
-        } else {
-          if (data.items == null || data.items.length <= 0) {
-            images = [{
-              'title': 'Opps, your search for ' + searchTerm + ' returned no results',
-              'author': 'System administrator',
-              'link': 'javascript:;',
-              'media': { 'm': '' },
-              'tags': ['no-results']
-            }];
+
+        try {
+          if (err) {
+            images = [internalServerErrorItem];
           } else {
-            images = data.items.map(function (item) {
-              var strTags = item.tags;
-              var arrayTags = strTags.split(' ');
-              item.tags = arrayTags;
-              return item;
-            });
+            if (data.items == null || data.items.length <= 0) {
+              images = [{
+                'title': 'Opps, your search for ' + searchTerm + ' returned no results',
+                'author': 'System administrator',
+                'link': 'javascript:;',
+                'media': { 'm': '' },
+                'tags': [{ value: 'no-results', isSearchTerm: true }]
+              }];
+            } else {
+              images = data.items.map(function (item) {
+                var strTags = item.tags;
+                var splitedTags = strTags.split(' ');
+
+                item.tags = splitedTags.map(function (strTag) {
+                  return { value: strTag, isSearchTerm: strTag == searchTerm ? true : false };
+                });
+
+                return item;
+              });
+            }
           }
+        } catch (exception) {
+          console.log(exception);
+          images: [internalServerErrorItem];
+        } finally {
+          self.hideLoading();
         }
+
         self.setState({ images: images });
-        self.hideLoading();
       });
     };
 
@@ -38266,7 +38280,7 @@ var Image = exports.Image = function (_Component) {
           { href: image.link },
           _react2.default.createElement(
             "h3",
-            { className: "truncate" },
+            { className: "truncate", title: image.title },
             image.title
           )
         ),
@@ -38279,10 +38293,11 @@ var Image = exports.Image = function (_Component) {
           "div",
           null,
           image.tags.map(function (tag, index) {
+            var searchTermClass = tag.isSearchTerm ? 'is-search-term' : '';
             return _react2.default.createElement(
               "span",
-              { key: index, className: "tag tag-info" },
-              tag
+              { key: index, className: 'tag tag-info ' + searchTermClass },
+              tag.value
             );
           })
         )

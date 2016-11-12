@@ -12,11 +12,12 @@ export class Image extends Component {
         <a href={image.link}>
           <img className="img-responsive" src={image.media.m} alt={image.title} />
         </a>
-        <a href={image.link}><h3 className="truncate">{image.title}</h3></a>
+        <a href={image.link}><h3 className="truncate" title={image.title}>{image.title}</h3></a>
         <i>{image.author}</i>
         <div>
           {image.tags.map(function(tag, index){
-            return (<span key={index} className="tag tag-info">{tag}</span>);
+            var searchTermClass = tag.isSearchTerm ? 'is-search-term' : '';
+            return (<span key={index} className={'tag tag-info ' + searchTermClass}>{tag.value}</span>);
           })}
         </div>
 
