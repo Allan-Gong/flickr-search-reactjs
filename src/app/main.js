@@ -24,8 +24,10 @@ export class Main extends Component {
   searchImages = (event) => {
     const self = this;
 
-    const searchTerm = event.target.value;
+    if (event.which == 13) { return; }
 
+    const searchTerm = event.target.value;
+    
     if (searchTerm.length < 3) {
       self.setState({images: []});
       return;

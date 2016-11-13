@@ -3,7 +3,7 @@ import DebounceInput from 'react-debounce-input';
 
 export class Header extends Component {
 
-  onKeyDownHandler = (event) => {
+  handleKeyDown = (event) => {
     if ( event.which == 13 ) {
       event.preventDefault();
     }
@@ -29,7 +29,7 @@ export class Header extends Component {
                   minLength={3}
                   debounceTimeout={750}
                   onChange={this.props.handleChange}
-                  onKeyDown={this.onKeyDownHandler}
+                  onKeyDown={this.handleKeyDown}
                   autoFocus={true}
                   placeholder={'Type in 3 or more letters to start a search'}
                 />
