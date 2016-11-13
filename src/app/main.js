@@ -31,6 +31,9 @@ export class Main extends Component {
       return;
     }
 
+    const searchTerms = searchTerm.split(' ');
+    const formattedSearchTerms = searchTerms.join(',');
+
     self.showLoading();
 
     const internalServerErrorItem = {
@@ -45,7 +48,7 @@ export class Main extends Component {
     };
 
     jsonp(
-      `https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagmode=any&jsoncallback=jsonFlickrFeed&tags=${searchTerm}`,
+      `https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagmode=all&jsoncallback=jsonFlickrFeed&tags=${formattedSearchTerms}`,
       {param: 'jsoncallback', name: 'jsonFlickrFeed'},
       (err, data) => {
         var images = [];
@@ -68,7 +71,7 @@ export class Main extends Component {
                 var splitedTags = strTags.split(' ');
 
                 item.tags = splitedTags.map(function(strTag){
-                  return { value: strTag, isSearchTerm: strTag == searchTerm ? true : false };
+                  return { value: strTag, isSearchTerm: searchTerms.indexOf(strTag) >= 0 ? true : false };
                 });
 
                 return item;
