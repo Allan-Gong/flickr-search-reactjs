@@ -76,3 +76,14 @@ If you have [`gulp-cli`](https://www.npmjs.com/package/gulp-cli) installed in gl
 > /usr/local/lib/node_modules/gulp/bin/gulp.js:121
     gulpInst.start.apply(gulpInst, toRun);
 TypeError: Cannot read property 'apply' of undefined
+
+### Future enhancements
+
+* Implement end-to-end test with [nightwatch.js](http://nightwatchjs.org)
+* Implement component test with [Enzyme](http://airbnb.io/enzyme/)
+* Sorting search results based on user-selected criterias
+* Pagination (infinite scroll)
+* Convert it to PWA ([Progressive Web App](https://developers.google.com/web/progressive-web-apps/))
+  * Add app manifest file for easy discovery, "add to home screen" feature, controlling viewport and installability
+  * Move API invokations and data manipulations to service worker for better performance
+  * Cache application shell using [sw-precache](https://github.com/GoogleChrome/sw-precache)
