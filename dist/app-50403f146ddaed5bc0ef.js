@@ -37978,6 +37978,9 @@ var Main = exports.Main = function (_Component) {
         return;
       }
 
+      var searchTerms = searchTerm.split(' ');
+      var formattedSearchTerms = searchTerms.join(',');
+
       self.showLoading();
 
       var internalServerErrorItem = {
@@ -37988,7 +37991,7 @@ var Main = exports.Main = function (_Component) {
         'tags': [{ value: 'error', isSearchTerm: false }, { value: '502', isSearchTerm: true }]
       };
 
-      (0, _jsonp2.default)('https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagmode=any&jsoncallback=jsonFlickrFeed&tags=' + searchTerm, { param: 'jsoncallback', name: 'jsonFlickrFeed' }, function (err, data) {
+      (0, _jsonp2.default)('https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagmode=all&jsoncallback=jsonFlickrFeed&tags=' + formattedSearchTerms, { param: 'jsoncallback', name: 'jsonFlickrFeed' }, function (err, data) {
         var images = [];
 
         try {
@@ -38009,7 +38012,7 @@ var Main = exports.Main = function (_Component) {
                 var splitedTags = strTags.split(' ');
 
                 item.tags = splitedTags.map(function (strTag) {
-                  return { value: strTag, isSearchTerm: strTag == searchTerm ? true : false };
+                  return { value: strTag, isSearchTerm: searchTerms.indexOf(strTag) >= 0 ? true : false };
                 });
 
                 return item;
@@ -38207,7 +38210,9 @@ var Header = exports.Header = function (_Component) {
                   className: 'form-control',
                   minLength: 3,
                   debounceTimeout: 750,
-                  onChange: this.props.handleChange
+                  onChange: this.props.handleChange,
+                  autoFocus: true,
+                  placeholder: 'Type in 3 or more letters to start a search'
                 })
               )
             )
